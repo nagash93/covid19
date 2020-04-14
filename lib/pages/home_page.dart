@@ -1,29 +1,49 @@
+import 'package:covid19_app/components/country_item.dart';
+import 'package:covid19_app/model/country.dart';
+import 'package:covid19_app/pages/countrylist_page.dart';
+import 'package:covid19_app/pages/world_page.dart';
+import 'package:covid19_app/providers/covid_provider.dart';
+import 'package:covid19_app/services/service.dart';
 import 'package:covid19_app/util/responsive.dart';
+import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin {
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
   TabController _tabController;
-  int tabIndex=1;
+  int tabIndex = 0;
   Responsive responsive;
   ThemeData theme;
 
+  CovidProvider covidProvider;
+
   @override
   Widget build(BuildContext context) {
+    covidProvider = Provider.of<CovidProvider>(context);
     responsive = Responsive(context);
     theme = Theme.of(context);
     return Scaffold(
-      body: tabView() ,
+      body: covidProvider.summary != null
+          ? tabView()
+          : Center(
+              child: Text(
+                "Cargando",
+              ),
+            ),
     );
   }
 
   @override
   void initState() {
     super.initState();
+    ServiceGeneral().getSummary();
+
     _tabController = TabController(vsync: this, length: 2, initialIndex: 0);
     _tabController.addListener(() {
       setState(() {
@@ -31,7 +51,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       });
     });
   }
-
 
   Widget tabView() {
     return Scaffold(
@@ -45,22 +64,10 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             children: [
               Padding(
                   padding: EdgeInsets.only(bottom: responsive.ip(8)),
-                  child: Container(
-
-                    width: 400,
-                    height: 400,
-                    color: Colors.red,
-
-                  )),
+                  child: CountryListPage()),
               Padding(
                   padding: EdgeInsets.only(bottom: responsive.ip(8)),
-                  child:Container(
-
-                    width: 400,
-                    height: 400,
-                    color: Colors.green,
-
-                  )),
+                  child: WorldPage()),
             ],
           ),
           Container(
@@ -78,40 +85,41 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                     ),
                   )
                 ],
-
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-
                   TabBar(
                     controller: _tabController,
                     onTap: (value) {
+
+                      print(tabIndex);
                       setState(() {
                         tabIndex = value;
                       });
                     },
                     tabs: <Widget>[
-
                       Container(
                           width: responsive.ip(6),
                           height: responsive.ip(6),
                           child: Tab(
                               icon: Icon(
-                                Icons.explore,
-                                size: responsive.ip(1.5),
-                                color: tabIndex==0?theme.primaryColor:Colors.grey,
-                              ))),
+                            Icons.explore,
+                            color: tabIndex == 0
+                                ? theme.primaryColor
+                                : Colors.grey,
+                          ))),
                       Container(
                           width: responsive.ip(6),
                           height: responsive.ip(6),
                           child: Tab(
                               icon: Icon(
-                                Icons.explore,
-                                color: tabIndex==1?theme.primaryColor:Colors.grey,
-                              ))),
-
+                            Icons.explore,
+                            color: tabIndex == 1
+                                ? theme.primaryColor
+                                : Colors.grey,
+                          ))),
                     ],
                     indicatorColor: Colors.transparent,
                     indicatorWeight: 4.0,
@@ -126,4 +134,6 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
       ),
     );
   }
+
+
 }
