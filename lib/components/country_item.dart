@@ -2,8 +2,10 @@ import 'package:covid19_app/model/country.dart';
 import 'package:covid19_app/util/responsive.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class CountryItem extends StatelessWidget {
+  final formatter = new NumberFormat("#,###");
   final Country country;
 
   CountryItem(this.country);
@@ -33,11 +35,6 @@ class CountryItem extends StatelessWidget {
         children: <Widget>[
           Container(
 
-            padding: EdgeInsets.all(5),
-            decoration: BoxDecoration(
-                color: Colors.red,
-              borderRadius: BorderRadius.circular(80)
-            ),
             child: Flags.getMiniFlag(
                 country.countryCode, responsive.ip(4), responsive.ip(1.5)),
           ),
@@ -56,7 +53,7 @@ class CountryItem extends StatelessWidget {
           ),
 
           Container(
-            child: Text(country.totalConfirmed.toString(),
+            child: Text('${formatter.format(country.totalConfirmed)}',
             style: TextStyle(
               color: Colors.red,
               fontWeight: FontWeight.bold,

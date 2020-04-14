@@ -1,5 +1,6 @@
 import 'package:covid19_app/components/arrow_animation.dart';
 import 'package:covid19_app/components/country_item.dart';
+import 'package:covid19_app/components/titleHome.dart';
 import 'package:covid19_app/model/summary.dart';
 import 'package:covid19_app/providers/covid_provider.dart';
 import 'package:covid19_app/util/responsive.dart';
@@ -19,23 +20,7 @@ class CountryListPage extends StatelessWidget {
         color: Color(0xFFF2F4F5),
         child: Column(
           children: <Widget>[
-            Container(
-              width: responsive.wp(100),
-              decoration: BoxDecoration(
-                  color: theme.primaryColorDark,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              child: SafeArea(
-                  child: Text(
-                "Covid-19 Tracker",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold),
-              )),
-            ),
+            TitleHome("Covid-19","Tacker"),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
