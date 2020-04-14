@@ -1,4 +1,5 @@
 import 'package:covid19_app/components/country_item.dart';
+import 'package:covid19_app/components/loading_animation.dart';
 import 'package:covid19_app/model/country.dart';
 import 'package:covid19_app/pages/countrylist_page.dart';
 import 'package:covid19_app/pages/world_page.dart';
@@ -7,6 +8,7 @@ import 'package:covid19_app/services/service.dart';
 import 'package:covid19_app/util/responsive.dart';
 import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -29,13 +31,8 @@ class _HomePageState extends State<HomePage>
     responsive = Responsive(context);
     theme = Theme.of(context);
     return Scaffold(
-      body: covidProvider.summary != null
-          ? tabView()
-          : Center(
-              child: Text(
-                "Cargando",
-              ),
-            ),
+      backgroundColor: theme.primaryColorDark,
+      body: covidProvider.summary != null ? tabView() : Loading(),
     );
   }
 
@@ -60,7 +57,6 @@ class _HomePageState extends State<HomePage>
         children: <Widget>[
           TabBarView(
             controller: _tabController,
-            physics: NeverScrollableScrollPhysics(),
             children: [
               Padding(
                   padding: EdgeInsets.only(bottom: responsive.ip(8)),
@@ -93,8 +89,6 @@ class _HomePageState extends State<HomePage>
                   TabBar(
                     controller: _tabController,
                     onTap: (value) {
-
-                      print(tabIndex);
                       setState(() {
                         tabIndex = value;
                       });
@@ -105,24 +99,22 @@ class _HomePageState extends State<HomePage>
                           height: responsive.ip(6),
                           child: Tab(
                               icon: Icon(
-                            Icons.explore,
-                            color: tabIndex == 0
-                                ? theme.primaryColor
-                                : Colors.grey,
+                            FontAwesomeIcons.flag,
+                            color:
+                                tabIndex == 0 ? theme.accentColor : Colors.grey,
                           ))),
                       Container(
                           width: responsive.ip(6),
                           height: responsive.ip(6),
                           child: Tab(
                               icon: Icon(
-                            Icons.explore,
-                            color: tabIndex == 1
-                                ? theme.primaryColor
-                                : Colors.grey,
+                            FontAwesomeIcons.globeAmericas,
+                            color:
+                                tabIndex == 1 ? theme.accentColor : Colors.grey,
                           ))),
                     ],
-                    indicatorColor: Colors.transparent,
-                    indicatorWeight: 4.0,
+                    indicatorColor: theme.accentColor ,
+                    indicatorWeight: 2.0,
                     labelPadding: EdgeInsets.only(
                       top: 4,
                       bottom: 4,
@@ -134,6 +126,4 @@ class _HomePageState extends State<HomePage>
       ),
     );
   }
-
-
 }

@@ -7,9 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 class CountryListPage extends StatelessWidget {
-
   CovidProvider covidProvider;
-
 
   @override
   Widget build(BuildContext context) {
@@ -26,8 +24,8 @@ class CountryListPage extends StatelessWidget {
               decoration: BoxDecoration(
                   color: theme.primaryColorDark,
                   borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(50),
-                      bottomRight: Radius.circular(50))),
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))),
               child: SafeArea(
                   child: Text(
                 "Covid-19 Tracker",
@@ -39,17 +37,20 @@ class CountryListPage extends StatelessWidget {
               )),
             ),
             Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
-                InkWell(child:Text("Orden"),
+                InkWell(
+                  child: Text("Orden"),
                   onTap: covidProvider.changeOrderName,
                 ),
-                covidProvider.order==null?
-    IconButton(icon: Icon(Icons.sort)   , onPressed: covidProvider.changeOrder):
-    ArrowAnimation(covidProvider.order,covidProvider.changeOrder)
+                covidProvider.order == null
+                    ? IconButton(
+                        icon: Icon(Icons.sort,size: 20,),
+                        onPressed: covidProvider.changeOrder)
+                    : ArrowAnimation(
+                        covidProvider.order, covidProvider.changeOrder)
               ],
             ),
-
             Expanded(
               child: ListView.builder(
                   itemCount: covidProvider.summary.countries.length,
