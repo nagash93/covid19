@@ -1,24 +1,24 @@
 import 'dart:convert';
 
-import 'package:covid19_app/model/Country.dart';
+import 'package:covid19_app/model/country.dart';
 import 'package:covid19_app/model/global.dart';
 
-Summary summaryFromJson(String str) => Summary.fromJson(json.decode(str));
+SummaryModel summaryModelFromJson(String str) => SummaryModel.fromJson(json.decode(str));
 
-String summaryToJson(Summary data) => json.encode(data.toJson());
+String summaryModelToJson(SummaryModel data) => json.encode(data.toJson());
 
-class Summary {
+class SummaryModel {
   Global global;
   List<Country> countries;
   DateTime date;
 
-  Summary({
+  SummaryModel({
     this.global,
     this.countries,
     this.date,
   });
 
-  factory Summary.fromJson(Map<String, dynamic> json) => Summary(
+  factory SummaryModel.fromJson(Map<String, dynamic> json) => SummaryModel(
     global: Global.fromJson(json["Global"]),
     countries: List<Country>.from(json["Countries"].map((x) => Country.fromJson(x))),
     date: DateTime.parse(json["Date"]),
