@@ -1,5 +1,6 @@
 import 'package:covid19_app/components/header.dart';
 import 'package:covid19_app/components/world_item.dart';
+import 'package:covid19_app/model/country.dart';
 import 'package:covid19_app/providers/covid_provider.dart';
 import 'package:covid19_app/util/responsive.dart';
 import 'package:flutter/cupertino.dart';
@@ -17,64 +18,53 @@ class WorldPage extends StatelessWidget {
     responsive = Responsive(context);
     theme = Theme.of(context);
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: Stack(
+      backgroundColor: Colors.white,
+      body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Header(
-              icon:  FontAwesomeIcons.globeAmericas,
-              color: Colors.white.withOpacity(0.1),
-              title:  Center(
-                    child: Text("Estadísticas Globales",
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: responsive.ip(3)
-
-                      ),),
-                  )
-
-            ),
-            Container(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      WorldItem(
-                          "Confirmados",
-                          FontAwesomeIcons.virus,
-                          Color(0xFFFCE1EC),
-                          covidProvider.summary.global.totalConfirmed),
-                      WorldItem(
-                          "Fallecidos",
-                          FontAwesomeIcons.skull,
-                          Color(0xFFe5e3e4),
-                          covidProvider.summary.global.totalDeaths),
-                    ],
+                icon: FontAwesomeIcons.globeAmericas,
+                color: Colors.white.withOpacity(0.1),
+                title: Center(
+                  child: Text(
+                    "Estadísticas Globales",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        color: Colors.white, fontSize: responsive.ip(3)),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-
-                      WorldItem(
-                          "Recuperados",
-                          FontAwesomeIcons.heart,
-                          Color(0xFFe0f9e6),
-                          covidProvider.summary.global.totalRecovered),
-                    ],
-                  ),
-
-                Center(
-                    child:  Text("#QuedateEncasa"),
-                  )
-                ],
-              ),
+                )),
+            SizedBox(
+              height: responsive.ip(3),
             ),
-          ],
-        ));
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                WorldItem(
+                    "Confirmados",
+                    FontAwesomeIcons.virus,
+                    theme.accentColor,
+                    covidProvider.summary.global.totalConfirmed),
+              ],
+            ),
+            SizedBox(
+              height: responsive.ip(2),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                WorldItem(
+                    "Recuperados",
+                    FontAwesomeIcons.heart,
+                    Color(0xFF55e89a),
+                    covidProvider.summary.global.totalRecovered),
+                WorldItem(
+                    "Fallecidos",
+                    FontAwesomeIcons.skull,
+                    Color(0xFFd2ddd7),
+                    covidProvider.summary.global.totalDeaths),
+              ],
+            ),
+          ]),
+    );
   }
-
-
 }

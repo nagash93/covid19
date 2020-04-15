@@ -56,9 +56,12 @@ class _HomePageState extends State<HomePage>
           TabBarView(
             controller: _tabController,
             children: [
-              CountryListPage(),
               Padding(
-                  padding: EdgeInsets.only(bottom: responsive.ip(8)),
+                  padding: EdgeInsets.only(bottom: responsive.ip(5)),
+                  child: CountryListPage()),
+
+              Padding(
+                  padding: EdgeInsets.only(bottom: responsive.ip(5)),
                   child: WorldPage()),
             ],
           ),

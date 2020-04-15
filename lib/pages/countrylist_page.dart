@@ -17,7 +17,8 @@ class CountryListPage extends StatelessWidget {
     final responsive = Responsive(context);
     return Scaffold(
       backgroundColor: Colors.white,
-      body: Stack(alignment: Alignment(0, -1.1), children: <Widget>[
+      body: Stack(
+          alignment: Alignment(0, -1), children: <Widget>[
         Header(
           icon: FontAwesomeIcons.virus,
           title: Container(
@@ -41,11 +42,11 @@ class CountryListPage extends StatelessWidget {
                         fontWeight: FontWeight.bold),
                   ),
                 ]),
-            margin: EdgeInsets.all(20),
+            margin: EdgeInsets.symmetric(horizontal: 20),
           ),
           subMenu:Container(
 
-            margin: EdgeInsets.all(5),
+            margin: EdgeInsets.symmetric(horizontal: 5),
             child:  Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -77,7 +78,7 @@ class CountryListPage extends StatelessWidget {
             ),
             Container(
                 width: responsive.wp(100),
-                height: responsive.hp(75),
+                height: responsive.hp(74),
                 child: Column(
                   children: <Widget>[
                     Expanded(

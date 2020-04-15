@@ -21,24 +21,25 @@ class _CountryItemState extends State<CountryItem> {
   Widget build(BuildContext context) {
     responsive = Responsive(context);
     containerHeight =
-        containerHeight == null ? responsive.ip(6) : containerHeight;
+        containerHeight == null ? responsive.ip(8) : containerHeight;
     return InkWell(
       onTap: () {
         expanded = expanded ? false : true;
         if (expanded) {
-          containerHeight = responsive.ip(12);
+          containerHeight = responsive.ip(16);
         } else {
-          containerHeight = responsive.ip(6);
+          containerHeight = responsive.ip(8);
         }
         setState(() {});
       },
-      child: Container(
+      child: AnimatedContainer(
+          duration: Duration(milliseconds: 300),
+          curve: Curves.fastOutSlowIn,
           height: containerHeight,
           margin: EdgeInsets.all(5),
           padding: EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color:  expanded
-                ?Color(0xFFf0f0f0):Colors.white,
+            color: expanded ? Colors.white.withOpacity(0.9) : Colors.white,
             borderRadius: BorderRadius.circular(5),
             boxShadow: [
               BoxShadow(
@@ -59,14 +60,15 @@ class _CountryItemState extends State<CountryItem> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-
                   Container(
-                    width: responsive.ip(5),
-                    height: responsive.ip(3),
+                    width: responsive.ip(6),
+                    height: responsive.ip(4),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
+                        borderRadius: BorderRadius.circular(5),
                         image: DecorationImage(
-                            image: AssetImage('icons/flags/png/2.5x/${widget.country.countryCode.toLowerCase()}.png', package: 'country_icons'))),
+                            image: AssetImage(
+                                'icons/flags/png/2.5x/${widget.country.countryCode.toLowerCase()}.png',
+                                package: 'country_icons'))),
                   ),
                   Expanded(
                     child: Container(
@@ -87,7 +89,7 @@ class _CountryItemState extends State<CountryItem> {
                         child: Text(
                           '${!expanded ? formatter.format(widget.country.totalConfirmed) : ''}',
                           style: TextStyle(
-                            color: Colors.red,
+                            color: Theme.of(context).accentColor,
                             fontWeight: FontWeight.w500,
                             fontSize: responsive.ip(1.5),
                           ),
@@ -96,7 +98,7 @@ class _CountryItemState extends State<CountryItem> {
                       Text(
                         '${!expanded ? 'Confirmados' : ''}',
                         style: TextStyle(
-                          color: Colors.red,
+                          color: Theme.of(context).accentColor,
                           fontWeight: FontWeight.w400,
                           fontSize: responsive.ip(1.2),
                         ),
@@ -108,7 +110,9 @@ class _CountryItemState extends State<CountryItem> {
               expanded
                   ? Column(
                       children: <Widget>[
-                        SizedBox(height: responsive.ip(1),),
+                        SizedBox(
+                          height: responsive.ip(1),
+                        ),
                         Divider(
                           height: 1,
                         ),
@@ -116,11 +120,11 @@ class _CountryItemState extends State<CountryItem> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             itemCount(widget.country.totalConfirmed,
-                                "Confirmados", Colors.red),
+                                "Confirmados", Theme.of(context).accentColor),
                             itemCount(widget.country.totalRecovered,
-                                "Recuperados", Colors.green),
+                                "Recuperados", Color(0xFF55e89a)),
                             itemCount(widget.country.totalDeaths, "Fallecidos",
-                                Colors.grey),
+                                Color(0xFFd2ddd7)),
                           ],
                         )
                       ],
@@ -137,7 +141,7 @@ class _CountryItemState extends State<CountryItem> {
       child: Column(
         children: <Widget>[
           Text(
-            count.toString(),
+            formatter.format(count).toString(),
             style: TextStyle(color: color, fontSize: responsive.ip(1.6)),
           ),
           Text(

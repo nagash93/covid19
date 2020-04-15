@@ -20,26 +20,26 @@ class WorldItem extends StatelessWidget {
     return Container(
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(5),
-      width: responsive.wp(40),
-      height: responsive.wp(40),
+      width: responsive.ip(15),
+      height: responsive.ip(15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        color: Colors.white,
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
+        color: theme.primaryColorDark,
+        /*gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
           colors: [
-            color,
-            Colors.white,
+            Color(0xFFF8F5FE),
+            Color(0xFFFDFCFE),
           ],
-        ),
+        ),*/
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.white,
             blurRadius: 3.0,
             spreadRadius: 1.0,
             offset: Offset(
-              1.0,
+              0.3,
               1.0,
             ),
           )
@@ -51,7 +51,7 @@ class WorldItem extends StatelessWidget {
         children: <Widget>[
           Icon(icon,
               size: responsive.ip(5),
-            color: theme.primaryColorDark,
+            color: color,
           ),
           SizedBox(
             height: 10,
@@ -60,7 +60,7 @@ class WorldItem extends StatelessWidget {
             '${formatter.format(count)}',
 
             style: TextStyle(fontSize: responsive.ip(2),
-                color: theme.primaryColorDark,
+                color: Colors.white,
                 fontWeight: FontWeight.w500),
           ),
           SizedBox(
@@ -70,8 +70,9 @@ class WorldItem extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: TextStyle(
-              color: theme.primaryColorDark,
-              fontSize: responsive.ip(1.5),
+              color: color,
+              fontSize: responsive.ip(1.6),
+              fontWeight: FontWeight.w600
             ),
           ),
         ],
