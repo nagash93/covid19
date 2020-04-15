@@ -23,7 +23,7 @@ class _ArrowAnimationState extends State<ArrowAnimation>  with TickerProviderSta
   void initState() {
     _arrowAnimationController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 300));
-    widget.changeOrder();
+
     if (widget.state) {
       _arrowAnimation =
           Tween(begin: pi, end: 0.0).animate(_arrowAnimationController);
@@ -42,8 +42,8 @@ class _ArrowAnimationState extends State<ArrowAnimation>  with TickerProviderSta
         builder: (context, child) => Transform.rotate(
           angle: _arrowAnimation.value,
           child: IconButton(
-              icon: Icon(Icons.arrow_drop_up,size: 20,),
-              onPressed: changeArrow),
+              icon: Icon(Icons.arrow_drop_up,size: 25,color: Colors.white,),
+              onPressed: () => changeArrow()),
         ),
         //  child:
       );

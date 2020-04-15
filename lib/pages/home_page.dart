@@ -1,12 +1,10 @@
-import 'package:covid19_app/components/country_item.dart';
+
 import 'package:covid19_app/components/loading_animation.dart';
-import 'package:covid19_app/model/country.dart';
 import 'package:covid19_app/pages/countrylist_page.dart';
 import 'package:covid19_app/pages/world_page.dart';
 import 'package:covid19_app/providers/covid_provider.dart';
 import 'package:covid19_app/services/service.dart';
 import 'package:covid19_app/util/responsive.dart';
-import 'package:flag/flag.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -51,16 +49,14 @@ class _HomePageState extends State<HomePage>
 
   Widget tabView() {
     return Scaffold(
-      backgroundColor: Color(0xff1b191a),
+      backgroundColor: Colors.white,
       body: Stack(
         alignment: Alignment(0, 1),
         children: <Widget>[
           TabBarView(
             controller: _tabController,
             children: [
-              Padding(
-                  padding: EdgeInsets.only(bottom: responsive.ip(8)),
-                  child: CountryListPage()),
+              CountryListPage(),
               Padding(
                   padding: EdgeInsets.only(bottom: responsive.ip(8)),
                   child: WorldPage()),
@@ -69,7 +65,7 @@ class _HomePageState extends State<HomePage>
           Container(
               height: responsive.ip(8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: theme.primaryColorDark,
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.2),
@@ -81,6 +77,10 @@ class _HomePageState extends State<HomePage>
                     ),
                   )
                 ],
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20)
+                )
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage>
                           height: responsive.ip(6),
                           child: Tab(
                               icon: Icon(
-                            FontAwesomeIcons.flag,
+                            FontAwesomeIcons.list,
                             color:
                                 tabIndex == 0 ? theme.accentColor : Colors.grey,
                           ))),
