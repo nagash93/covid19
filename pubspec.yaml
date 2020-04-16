@@ -9,14 +9,18 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cupertino_icons: ^0.1.2
+
   #service
   http: 0.12.0+4
   provider: ^4.0.5
+
+  #Icons & font
   country_icons: ^1.1.1
-  #flag: ^1.0.3
   font_awesome_flutter: ^8.8.1
   google_fonts: ^0.4.1
+  cupertino_icons: ^0.1.2
+
+  #util
   intl: ^0.16.1
 
 dev_dependencies:
