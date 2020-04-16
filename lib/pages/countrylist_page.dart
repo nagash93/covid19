@@ -1,7 +1,6 @@
 import 'package:covid19_app/components/arrow_animation.dart';
 import 'package:covid19_app/components/country_item.dart';
 import 'package:covid19_app/components/header.dart';
-import 'package:covid19_app/model/summary.dart';
 import 'package:covid19_app/providers/covid_provider.dart';
 import 'package:covid19_app/util/responsive.dart';
 import 'package:flutter/material.dart';
@@ -21,28 +20,31 @@ class CountryListPage extends StatelessWidget {
           alignment: Alignment(0, -1), children: <Widget>[
         Header(
           icon: FontAwesomeIcons.virus,
-          title: Container(
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    "Covid-19",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(2.5),
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "Tracker",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: responsive.ip(2),
-                        fontWeight: FontWeight.bold),
-                  ),
-                ]),
-            margin: EdgeInsets.symmetric(horizontal: 20),
+          title:InkWell(
+            onTap: ()=>covidProvider.loadData(),
+            child:  Container(
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Covid-19",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: responsive.ip(2.5),
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "Tracker",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: responsive.ip(2),
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ]),
+              margin: EdgeInsets.symmetric(horizontal: 20),
+            ),
           ),
           subMenu:Container(
 

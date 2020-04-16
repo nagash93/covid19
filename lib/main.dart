@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     ));
     return MultiProvider(
         providers: [
-          ChangeNotifierProvider.value(value: CovidProvider()),
+          ChangeNotifierProvider(create: (_)=>CovidProvider()),
         ],
         child: MaterialApp(
             title: 'Covid-19',
@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
               accentColor: Color(0xFFEA5569),
               primaryColorLight: Color(0xFFD8ECF1),
               primaryColorDark: Color(0xff212B46),
+              primaryColor: Color(0xff212B46),
               textTheme: GoogleFonts.ubuntuTextTheme(
                 Theme.of(context).textTheme,
               ),

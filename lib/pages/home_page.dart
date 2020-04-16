@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage>
     theme = Theme.of(context);
     return Scaffold(
       backgroundColor: theme.primaryColorDark,
-      body: covidProvider.summary != null ? tabView() : Loading(),
+      body: covidProvider.loading || covidProvider.summary==null? Loading(covidProvider):tabView() ,
     );
   }
 

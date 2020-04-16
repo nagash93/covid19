@@ -21,14 +21,14 @@ class _CountryItemState extends State<CountryItem> {
   Widget build(BuildContext context) {
     responsive = Responsive(context);
     containerHeight =
-        containerHeight == null ? responsive.ip(8) : containerHeight;
+        containerHeight == null ? responsive.ip(6) : containerHeight;
     return InkWell(
       onTap: () {
         expanded = expanded ? false : true;
         if (expanded) {
-          containerHeight = responsive.ip(16);
+          containerHeight = responsive.ip(14);
         } else {
-          containerHeight = responsive.ip(8);
+          containerHeight = responsive.ip(6);
         }
         setState(() {});
       },
@@ -53,84 +53,86 @@ class _CountryItemState extends State<CountryItem> {
               )
             ],
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Container(
-                    width: responsive.ip(6),
-                    height: responsive.ip(4),
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5),
-                        image: DecorationImage(
-                            image: AssetImage(
-                                'icons/flags/png/2.5x/${widget.country.countryCode.toLowerCase()}.png',
-                                package: 'country_icons'))),
-                  ),
-                  Expanded(
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Text(
-                        widget.country.country,
-                        overflow: TextOverflow.fade,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: responsive.ip(1.8),
-                        ),
-                      ),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: responsive.ip(6),
+                      height: responsive.ip(4),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          image: DecorationImage(
+                              image: AssetImage(
+                                  'icons/flags/png/2.5x/${widget.country.countryCode.toLowerCase()}.png',
+                                  package: 'country_icons'))),
                     ),
-                  ),
-                  Column(
-                    children: <Widget>[
-                      Container(
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          '${!expanded ? formatter.format(widget.country.totalConfirmed) : ''}',
+                          widget.country.country,
+                          overflow: TextOverflow.fade,
                           style: TextStyle(
-                            color: Theme.of(context).accentColor,
-                            fontWeight: FontWeight.w500,
-                            fontSize: responsive.ip(1.5),
+                            color: Colors.black,
+                            fontSize: responsive.ip(1.8),
                           ),
                         ),
                       ),
-                      Text(
-                        '${!expanded ? 'Confirmados' : ''}',
-                        style: TextStyle(
-                          color: Theme.of(context).accentColor,
-                          fontWeight: FontWeight.w400,
-                          fontSize: responsive.ip(1.2),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              expanded
-                  ? Column(
+                    ),
+                    Column(
                       children: <Widget>[
-                        SizedBox(
-                          height: responsive.ip(1),
+                        Container(
+                          child: Text(
+                            '${!expanded ? formatter.format(widget.country.totalConfirmed) : ''}',
+                            style: TextStyle(
+                              color: Theme.of(context).accentColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: responsive.ip(1.5),
+                            ),
+                          ),
                         ),
-                        Divider(
-                          height: 1,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            itemCount(widget.country.totalConfirmed,
-                                "Confirmados", Theme.of(context).accentColor),
-                            itemCount(widget.country.totalRecovered,
-                                "Recuperados", Color(0xFF55e89a)),
-                            itemCount(widget.country.totalDeaths, "Fallecidos",
-                                Color(0xFFd2ddd7)),
-                          ],
+                        Text(
+                          '${!expanded ? 'Confirmados' : ''}',
+                          style: TextStyle(
+                            color: Theme.of(context).accentColor,
+                            fontWeight: FontWeight.w400,
+                            fontSize: responsive.ip(1.2),
+                          ),
                         )
                       ],
                     )
-                  : Container()
-            ],
+                  ],
+                ),
+                expanded
+                    ? Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: responsive.ip(1),
+                    ),
+                    Divider(
+                      height: 1,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        itemCount(widget.country.totalConfirmed,
+                            "Confirmados", Theme.of(context).accentColor),
+                        itemCount(widget.country.totalRecovered,
+                            "Recuperados", Color(0xFF55e89a)),
+                        itemCount(widget.country.totalDeaths, "Fallecidos",
+                            Color(0xFFd2ddd7)),
+                      ],
+                    )
+                  ],
+                )
+                    : Container()
+              ],
+            ),
           )),
     );
   }
